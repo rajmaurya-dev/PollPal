@@ -5,6 +5,7 @@ import "dotenv/config";
 import { errorMiddleware } from "./middlewares/error.js";
 import { connectDB } from "./config/database.js";
 import authRouter from "./routes/auth.js";
+import pollRouter from "./routes/poll.js";
 const app = express();
 const port = process.env.PORT;
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(errorMiddleware);
 app.use("/api/auth", authRouter);
+app.use("/api/polls", pollRouter);
 connectDB();
 
 app.listen(process.env.PORT, () => {

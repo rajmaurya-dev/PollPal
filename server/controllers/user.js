@@ -1,6 +1,8 @@
 import ErrorHandler from "../middlewares/error.js";
 import { User } from "../models/users.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 export const register = async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -16,17 +18,19 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ username: username });
     const { id } = user;
-    const valid = await bcrypt.compare(password, req.body.password);
+    const valid = await bcrypt.compare(password, user.password);
     if (valid) {
-      const token = jwt.sign({ id, username }.process.env.JWT_SECRET);
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+      res.json({
+        id,
+        token,
+        username,
+      });
+    } else {
+      res.json({ message: "some error" });
     }
-    res.json({
-      id,
-      token,
-      username,
-    });
   } catch (error) {
     next(error);
   }
