@@ -5,6 +5,7 @@ import {
   getPoll,
   showPolls,
   userPolls,
+  vote,
 } from "../controllers/poll.js";
 import { auth } from "../middlewares/auth.js";
 
@@ -14,5 +15,6 @@ router.get("/user", auth, userPolls);
 router.post("/", auth, createPoll);
 router.get("/:id", getPoll);
 router.delete("/:id", auth, deletePoll);
+router.post("/:id", auth, vote);
 
 export default router;
