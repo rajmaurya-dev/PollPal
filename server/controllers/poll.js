@@ -3,7 +3,7 @@ import { User } from "../models/users.js";
 
 export const showPolls = async (req, res, next) => {
   try {
-    const polls = await Poll.find();
+    const polls = await Poll.find().populate("user", ["username", "id"]);
     res.status(200).json(polls);
   } catch (error) {
     error.status = 400;
@@ -45,6 +45,35 @@ export const createPoll = async (req, res, next) => {
       ...poll.toJSON(),
       user: user.toJSON(),
     });
+  } catch (error) {
+    error.status = 400;
+    next(error);
+  }
+};
+
+export const getPoll = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const poll = await Poll.findById(id).populate("user", ["username", "id"]);
+    if (!poll) throw new Error("No such poll found");
+    res.status(200).json(poll);
+  } catch (error) {
+    error.status = 400;
+    next(error);
+  }
+};
+
+export const deletePoll = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { _id } = req.decoded;
+    const poll = await Poll.findById(id);
+    if (!poll) throw new Error("No such poll found");
+    if (poll.user.toString() !== _id) {
+      throw new Error("Unauthorized Access");
+    }
+    await poll.deleteOne();
+    res.status(202).json(poll);
   } catch (error) {
     error.status = 400;
     next(error);
