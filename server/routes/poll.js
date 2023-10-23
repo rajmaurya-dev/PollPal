@@ -1,8 +1,10 @@
 import express from "express";
-import { createPoll, showPolls } from "../controllers/poll.js";
+import { createPoll, showPolls, userPolls } from "../controllers/poll.js";
+import { auth } from "../middlewares/auth.js";
 
 const router = express.Router();
 router.get("/", showPolls);
-router.post("/", createPoll);
+router.get("/user", auth, userPolls);
+router.post("/", auth, createPoll);
 
 export default router;
