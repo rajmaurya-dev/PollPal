@@ -24,15 +24,10 @@ export const userPolls = async (req, res, next) => {
 };
 
 export const createPoll = async (req, res, next) => {
-  if (!req.decoded) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-  const { _id } = req.decoded;
-
+  const userId = req.user._id;
   const { title, options } = req.body;
   try {
-    let user = await User.findById(_id).populate("polls");
+    let user = await User.findById(userId).populate("polls");
     const poll = await Poll.create({
       title,
       user: user._id,
@@ -67,10 +62,11 @@ export const getPoll = async (req, res, next) => {
 export const deletePoll = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { _id } = req.decoded;
+    const userId = req.user._id;
     const poll = await Poll.findById(id);
+
     if (!poll) throw new Error("No such poll found");
-    if (poll.user.toString() !== _id) {
+    if (poll.user.toString() !== userId.toString()) {
       throw new Error("Unauthorized Access");
     }
     await poll.deleteOne();
@@ -84,11 +80,10 @@ export const deletePoll = async (req, res, next) => {
 export const vote = async (req, res, next) => {
   try {
     const { id: pollId } = req.params;
-    const { _id: userId } = req.decoded;
+    const userId = req.user._id;
     const { answer } = req.body;
     if (answer) {
       const poll = await Poll.findById(pollId);
-
       if (!poll) {
         throw new Error("Poll not found");
       }

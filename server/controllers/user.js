@@ -1,3 +1,4 @@
+import { sendCookie } from "../utils/feature.js";
 import ErrorHandler from "../middlewares/error.js";
 import { User } from "../models/users.js";
 import bcrypt from "bcrypt";
@@ -10,7 +11,8 @@ export const register = async (req, res, next) => {
     if (user) return next(new ErrorHandler("User already exists", 400));
     const hashedPassword = await bcrypt.hash(password, 10);
     user = await User.create({ username, password: hashedPassword });
-    res.json(user);
+
+    sendCookie(user, res, `successfully registered ${user.username}`, 200);
   } catch (error) {
     next(error);
   }
@@ -23,15 +25,30 @@ export const login = async (req, res, next) => {
     const valid = await bcrypt.compare(password, user.password);
     if (valid) {
       const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-      res.json({
-        id,
-        token,
-        username,
-      });
+      res
+        .cookie("token", token, {
+          httpOnly: true,
+          maxAge: 15 * 60 * 1000,
+        })
+        .json({
+          id,
+          token,
+          username,
+        });
     } else {
       res.json({ message: "some error" });
     }
   } catch (error) {
     next(error);
   }
+};
+
+export const logout = async (req, res, next) => {
+  res
+    .status(200)
+    .cookie("token", "", { expires: new Date(Date.now()) })
+    .json({
+      success: "true",
+      user: req.user,
+    });
 };

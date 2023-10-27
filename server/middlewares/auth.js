@@ -2,17 +2,17 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/users.js";
 
 export const auth = async (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
+  const { token } = req.cookies;
 
   if (!token) {
-    return next();
+    return res.status(404).json({
+      success: false,
+      message: "Login first",
+    });
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.decoded = decoded;
-    next();
-  } catch (e) {
-    next();
-  }
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = await User.findById(decoded._id);
+  req.decoded = decoded;
+  next();
 };
