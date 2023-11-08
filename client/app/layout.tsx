@@ -10,6 +10,9 @@ const poppins = Poppins({ weight: ["400"], subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'PollPal',
   description: 'Fun Project',
+  icons: {
+    icon: '/logo.png',
+  },
 }
 
 export default function RootLayout({
@@ -19,6 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/logo.png" />
+      </head>
       <body className={poppins.className}>
         <div className="main">
           <div className='gradient' />

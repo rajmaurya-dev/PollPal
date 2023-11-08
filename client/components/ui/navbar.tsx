@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
                         </Link>
                     </div>
                     <div className="flex items-center">
-                        <Link href="/signin" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
+                        <Link href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
                             Sign In
                         </Link>
                     </div>
