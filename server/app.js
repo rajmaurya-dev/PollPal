@@ -12,7 +12,13 @@ const port = process.env.PORT;
 
 app.get("/", (req, res) => res.json({ hell: "no" }));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(errorMiddleware);

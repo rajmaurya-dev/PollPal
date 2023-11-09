@@ -2,7 +2,9 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import toast, { Toaster } from 'react-hot-toast';
 import * as z from "zod"
+import axios from "axios"
 import {
     Card,
     CardContent,
@@ -31,12 +33,27 @@ const formSchema = z.object({
         message: "Password must be at least 5 characters.",
     }),
 })
-function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    const { username, password } = values
-    console.log(`hey ${username} your password is ${password}`)
-}
+async function onSubmit(values: z.infer<typeof formSchema>) {
+
+    try {
+        const { username, password } = values
+        console.log(username, password);
+        const { data } = await axios.post(
+            `https://pollpall.onrender.com/api/auth/register`,
+            { username, password },
+            {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
+            }
+        );
+        toast.success('Welcome to PollPal');
+        ;
+    } catch (error) {
+        toast.error('Something went wrong');
+
+    }
+};
+
 
 export function Signup() {
     const form = useForm<z.infer<typeof formSchema>>({

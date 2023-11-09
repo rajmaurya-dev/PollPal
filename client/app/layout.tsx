@@ -7,6 +7,7 @@ import Navbar from '@/components/ui/navbar'
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({ weight: ["400"], subsets: ['latin'] })
 
+
 export const metadata: Metadata = {
   title: 'PollPal',
   description: 'Fun Project',
@@ -20,6 +21,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="en">
       <head>
@@ -31,6 +33,7 @@ export default function RootLayout({
         </div>
         <main className="app">
           <Navbar />
+
           {children}
         </main>
       </body>
