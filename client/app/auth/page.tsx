@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -15,18 +16,26 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
+import { useForm, SubmitHandler } from "react-hook-form"
+import { Signup } from "../components/Signup"
 
+interface IFormInput {
+    username: string
+    password: string
+}
 export default function TabsDemo() {
+    const { register, handleSubmit } = useForm<IFormInput>()
+    const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
     return (
         <div className="flex justify-center items-center ">
 
-            <Tabs defaultValue="Login" className="w-[400px]">
+            <Tabs defaultValue="Login" className="w-[400px] bg-white bg-opacity-60 backdrop-blur-lg rounded drop-shadow-lg">
                 <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="Login">Login</TabsTrigger>
                     <TabsTrigger value="SignUp">SignUp</TabsTrigger>
                 </TabsList>
                 <TabsContent value="Login">
-                    <Card>
+                    <Card className="bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
                         <CardHeader>
                             <CardTitle>Login</CardTitle>
                             <CardDescription>
@@ -34,14 +43,17 @@ export default function TabsDemo() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
-                            <div className="space-y-1">
-                                <Label htmlFor="name">Name</Label>
-                                <Input id="name" defaultValue="Pedro Duarte" />
-                            </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="username">Username</Label>
-                                <Input id="username" defaultValue="@peduarte" />
-                            </div>
+                            <form action="
+                            ">
+                                <div className="space-y-1">
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input id="name" defaultValue="Pedro Duarte" />
+                                </div>
+                                <div className="space-y-1">
+                                    <Label htmlFor="username">Username</Label>
+                                    <Input id="username" defaultValue="@peduarte" />
+                                </div>
+                            </form>
                         </CardContent>
                         <CardFooter>
                             <Button>Save changes</Button>
@@ -49,26 +61,16 @@ export default function TabsDemo() {
                     </Card>
                 </TabsContent>
                 <TabsContent value="SignUp">
-                    <Card>
+                    <Card className="bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
                         <CardHeader>
                             <CardTitle>SignUp</CardTitle>
                             <CardDescription>
                                 Change your SignUp here. After saving, you'll be logged out.
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="space-y-2">
-                            <div className="space-y-1">
-                                <Label htmlFor="current">Current SignUp</Label>
-                                <Input id="current" type="SignUp" />
-                            </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="new">New SignUp</Label>
-                                <Input id="new" type="SignUp" />
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button>Save SignUp</Button>
-                        </CardFooter>
+
+                        <Signup />
+
                     </Card>
                 </TabsContent>
             </Tabs>
