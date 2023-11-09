@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tabs"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { Signup } from "../components/Signup"
+import { Login } from "../components/Login"
 
 interface IFormInput {
     username: string
@@ -38,35 +39,16 @@ export default function TabsDemo() {
                     <Card className="bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
                         <CardHeader>
                             <CardTitle>Login</CardTitle>
-                            <CardDescription>
-                                Make changes to your Login here. Click save when you're done.
-                            </CardDescription>
+
                         </CardHeader>
-                        <CardContent className="space-y-2">
-                            <form action="
-                            ">
-                                <div className="space-y-1">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input id="name" defaultValue="Pedro Duarte" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="username">Username</Label>
-                                    <Input id="username" defaultValue="@peduarte" />
-                                </div>
-                            </form>
-                        </CardContent>
-                        <CardFooter>
-                            <Button>Save changes</Button>
-                        </CardFooter>
+                        <Login />
                     </Card>
                 </TabsContent>
                 <TabsContent value="SignUp">
                     <Card className="bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
                         <CardHeader>
                             <CardTitle>SignUp</CardTitle>
-                            <CardDescription>
-                                Change your SignUp here. After saving, you'll be logged out.
-                            </CardDescription>
+
                         </CardHeader>
 
                         <Signup />

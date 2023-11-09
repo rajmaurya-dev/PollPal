@@ -39,17 +39,17 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
         const { username, password } = values
         console.log(username, password);
         const { data } = await axios.post(
-            `https://pollpall.onrender.com/api/auth/register`,
+            `http://localhost:8000/api/auth/register`,
             { username, password },
             {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             }
         );
-        toast.success('Welcome to PollPal');
-        ;
-    } catch (error) {
-        toast.error('Something went wrong');
+        toast.success(data.message || 'Success');
+
+    } catch (error: any) {
+        toast.error(error.response.data.message || 'Something went wrong');
 
     }
 };
@@ -67,47 +67,51 @@ export function Signup() {
 
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <CardContent className="space-y-2">
-                    <FormField
-                        control={form.control}
-                        name="username"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Username</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="pollking" {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                    This is your public display name.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="enter a strong password" {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                    this is not public information.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </CardContent>
-                <CardFooter>
-                    <Button type="submit">Submit</Button>
+        <>
 
-                </CardFooter>
-            </form>
-        </Form >
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <CardContent className="space-y-2">
+                        <FormField
+                            control={form.control}
+                            name="username"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Username</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="pollking" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        This is your public display name.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="enter a strong password" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        this is not public information.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </CardContent>
+                    <CardFooter>
+                        <Button type="submit">Signup</Button>
+
+                    </CardFooter>
+                </form>
+            </Form >
+            <Toaster />
+        </>
     )
 }

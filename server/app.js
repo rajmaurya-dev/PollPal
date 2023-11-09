@@ -12,6 +12,9 @@ const port = process.env.PORT;
 
 app.get("/", (req, res) => res.json({ hell: "no" }));
 
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(errorMiddleware);
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL],
@@ -19,9 +22,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(errorMiddleware);
 app.use("/api/auth", authRouter);
 app.use("/api/polls", pollRouter);
 connectDB();

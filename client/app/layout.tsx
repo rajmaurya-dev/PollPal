@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/ui/navbar'
-
+import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({ weight: ["400"], subsets: ['latin'] })
 
@@ -33,7 +33,7 @@ export default function RootLayout({
         </div>
         <main className="app">
           <Navbar />
-
+          <Toaster />
           {children}
         </main>
       </body>
