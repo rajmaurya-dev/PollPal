@@ -34,6 +34,7 @@ export const login = async (req, res, next) => {
           id,
           token,
           username,
+          message: "successfully logged in",
         });
     } else {
       res.json({ message: "some error" });
@@ -51,4 +52,11 @@ export const logout = async (req, res, next) => {
       success: "true",
       user: req.user,
     });
+};
+
+export const getMyProfile = (req, res) => {
+  res.status(200).json({
+    success: "true",
+    user: req.user,
+  });
 };

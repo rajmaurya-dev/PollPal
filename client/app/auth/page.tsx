@@ -28,7 +28,7 @@ export default function TabsDemo() {
     const { register, handleSubmit } = useForm<IFormInput>()
     const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
     return (
-        <div className="flex justify-center items-center ">
+        <div className="flex md:justify-center justify-around h-[80vh] items-center ">
 
             <Tabs defaultValue="Login" className="w-[400px] bg-white bg-opacity-60 backdrop-blur-lg rounded drop-shadow-lg">
                 <TabsList className="grid w-full grid-cols-2">

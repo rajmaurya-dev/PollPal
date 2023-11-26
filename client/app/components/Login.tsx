@@ -24,6 +24,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useUserStore } from "@/utils/features";
 
 const formSchema = z.object({
     username: z.string().min(2, {
@@ -33,23 +34,31 @@ const formSchema = z.object({
         message: "Password must be at least 5 characters.",
     }),
 })
+function handleSubmit() {
+
+}
 async function onSubmit(values: z.infer<typeof formSchema>) {
 
+    const { setUser, user } = useUserStore.getState()
     try {
         const { username, password } = values
         console.log(username, password);
+        console.log(process.env.NEXT_PUBLIC_SERVER_PATH)
         const { data } = await axios.post(
-            `http://localhost:8000/api/auth/login`,
+            `${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/login`,
             { username, password },
             {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             }
         );
-        toast.success(data.message || 'Success');
+        console.log(user)
+        setUser(data)
+        toast.success(data?.message || 'Success');
 
     } catch (error: any) {
-        toast.error(error.response.data.message || 'Something went wrong');
+        toast.error(error.response);
+        console.log(error)
 
     }
 };
@@ -68,7 +77,6 @@ export function Login() {
 
     return (
         <>
-
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <CardContent className="space-y-2">

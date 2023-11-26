@@ -1,11 +1,12 @@
 import Container from '@/components/ui/Container'
 import Image from 'next/image'
 import Features from './components/Features'
-
+import { cookies } from "next/headers";
 export default function Home() {
+  const token = cookies().get("token")?.value;
+
   return (
     <Container>
-
       <main className="flex min-h-screen flex-col py-2">
         <h1 className='text-2xl md:text-6xl text-center font-extrabold text-[#297bfe]'>Poll With Purpose. <br /> <span className='text-[#f4714c]'>Discover Insights Instantly !!
         </span> </h1>
@@ -14,4 +15,5 @@ export default function Home() {
       </main>
     </Container>
   )
+
 }
