@@ -4,6 +4,7 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/ui/navbar'
 import { Toaster } from 'react-hot-toast'
+import HydrationZustand from './HydrationZustand'
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({ weight: ["400"], subsets: ['latin'] })
 
@@ -31,11 +32,13 @@ export default function RootLayout({
         <div className="main">
           <div className='gradient' />
         </div>
-        <main className="app">
-          <Navbar />
-          <Toaster />
-          {children}
-        </main>
+        <HydrationZustand>
+          <main className="app">
+            <Navbar />
+            <Toaster />
+            {children}
+          </main>
+        </HydrationZustand >
       </body>
     </html>
   )

@@ -40,6 +40,7 @@ function handleSubmit() {
 async function onSubmit(values: z.infer<typeof formSchema>) {
 
     const { setUser, user } = useUserStore.getState()
+
     try {
         const { username, password } = values
         console.log(username, password);
@@ -52,8 +53,9 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
                 withCredentials: true,
             }
         );
-        console.log(user)
         setUser(data)
+        console.log('user', user)
+        console.log('data', data)
         toast.success(data?.message || 'Success');
 
     } catch (error: any) {
@@ -73,6 +75,7 @@ export function Login() {
         },
     })
 
+    const { setUser, user } = useUserStore.getState()
 
 
     return (
@@ -115,7 +118,7 @@ export function Login() {
                     </CardContent>
                     <CardFooter>
                         <Button type="submit">Login</Button>
-
+                        {user && <p>welcome {user?.username}</p>}
                     </CardFooter>
                 </form>
             </Form >
