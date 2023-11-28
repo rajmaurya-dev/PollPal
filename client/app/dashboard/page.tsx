@@ -11,13 +11,11 @@ const Page = () => {
     // if (!user.id) return redirect("/login");
     console.log(user)
     return (
-        <div> Welcome
-            <h1>Books: {amount} </h1>
-            <button
-                onClick={() => updateAmount(10)}
-            > Update Amount </button>
-            <h1>Welcome, {user.username}</h1>
-        </div>
+        <section>
+            <div>
+
+            </div>
+        </section>
     )
 }
 
