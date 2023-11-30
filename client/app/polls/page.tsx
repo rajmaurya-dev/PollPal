@@ -1,4 +1,5 @@
 'use client'
+import UserHeader from '@/components/ui/userHeader';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
@@ -45,26 +46,31 @@ const AllPolls: React.FC = () => {
     }, [])
 
     return (
-        <div className=" mx-20 mt-8">
+        <div className="mx-2 md:mx-20 mt-8">
+            <h1 className='text-orange-500 text-xl md:text-6xl mx-20'>Trending Polls</h1>
+            <div>
+
+                <UserHeader />
+            </div>
             <ul className='flex gap-3 items-center justify-around flex-wrap'>
                 {polls.map((poll) => (
                     <li
                         key={poll._id}
-                        className="bg-white rounded-md shadow-md p-4 mb-4 w-[300px] h-[200px]"
+                        className="bg-[#43547A] rounded-md shadow-md p-4 mb-4 w-[270px] h-[200px]"
                     >
                         <div>
                             <h3 className="text-xl font-semibold text-gray-800 mb-2">
                                 {poll.title}
                             </h3>
-                            <p className="text-gray-600">
+                            <p className="text-gray-900">
                                 Created by: {poll.user.username}
                             </p>
-                            <p className="text-gray-600 mt-2">Options:</p>
+                            <p className="text-gray-800 mt-2">Options:</p>
                             <ul className="list-disc pl-6">
                                 {poll.options.map((option) => (
                                     <li
                                         key={option._id}
-                                        className="text-gray-700 mb-2 flex items-center"
+                                        className="text-white mb-2 flex items-center"
                                     >
                                         <span
                                             className="w-4 h-4 rounded-full mr-2 bg-[#F4714C]"

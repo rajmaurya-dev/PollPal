@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useUserStore } from "@/utils/features";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
     username: z.string().min(2, {
@@ -58,9 +59,10 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
         console.log('data', data)
         toast.success(data?.message || 'Success');
 
+
     } catch (error: any) {
         toast.error(error.response);
-        console.log(error)
+
 
     }
 };
@@ -76,7 +78,7 @@ export function Login() {
     })
 
     const { setUser, user } = useUserStore.getState()
-
+    if (user.id) return redirect("/dashboard");
 
     return (
         <>
@@ -118,7 +120,7 @@ export function Login() {
                     </CardContent>
                     <CardFooter>
                         <Button type="submit">Login</Button>
-                        {user && <p>welcome {user?.username}</p>}
+
                     </CardFooter>
                 </form>
             </Form >

@@ -1,10 +1,27 @@
 'use client'
 import Link from 'next/link';
 import { useUserStore } from '@/utils/features';
+import axios from 'axios';
 
 const Navbar: React.FC = () => {
     const user = useUserStore(state => state.user)
+    const { setUser } = useUserStore.getState()
 
+    const logoutHandler = async () => {
+        try {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/auth/logout`,
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
+            );
+            setUser(data)
+            console.log(data)
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
     return (
         <nav className="">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,9 +34,13 @@ const Navbar: React.FC = () => {
                         </Link>
                     </div>
                     <div className="flex items-center">
-                        <Link href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
-                            Sign In
-                        </Link>
+                        {
+                            user.id ? <Link onClick={logoutHandler} href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
+                                Logout
+                            </Link> : <Link href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
+                                Signin </Link>
+                        }
+
                         {user.id &&
 
                             <Link href="/dashboard" className='text-[#F4714C] hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium'>
