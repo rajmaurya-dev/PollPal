@@ -2,15 +2,8 @@
 import UserHeader from '@/components/ui/userHeader';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import Poll from 'react-polls';
-const pollStyles1 = {
-    questionSeparator: true,
-    questionSeparatorWidth: "question",
-    questionBold: true,
-    questionColor: "#ffffff",
-    align: "center",
-    theme: "purple"
-};
+import toast from 'react-hot-toast';
+
 
 interface Option {
     _id: string;
@@ -47,59 +40,40 @@ const AllPolls: React.FC = () => {
                     },
                 );
                 setPolls(data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
+            } catch (error: any) {
+                console.log(error.response.data.message)
+
             }
         };
         fetchPolls();
     }, [])
-    const handleVoteChange = (
-        pollId: string,
-        optionId: string,
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        const newPolls = polls.map((poll) => {
-            if (poll._id === pollId) {
-                const newOptions = poll.options.map((option) => {
-                    if (option._id === optionId) {
-                        return { ...option, votes: Number(event.target.value) };
-                    }
-                    return option;
-                });
 
-                return { ...poll, options: newOptions };
-            }
-            return poll;
-        });
 
-        setPolls(newPolls);
-    };
-    const handleVote = (vote: number, pollId: string) => {
-        // Implement your logic to update votes on the server
-        // Update the state or send a request to your API
-        console.log(`Voted for option ${vote} in poll ${pollId}`);
-    };
-    const customVote = async (vote: number, pollId: string) => {
+    const handleVote = async (pollId: string, option: string, optionId: string) => {
         try {
-
+            console.log(`Voted for option ${option} in poll ${pollId}`)
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_SERVER_PATH}/polls/${pollId}`,
-                { answer: vote },
+                { answer: option },
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
             );
 
-            // Optionally, you can handle the response here
+            const updatedPoll = response.data;
 
-            console.log(`Voted for option ${vote} in poll ${pollId}`);
-        } catch (error) {
-            console.error('Error voting:', error);
-            // Handle the error if needed
+            // Update the state with the new poll data
+            setPolls((prevPolls) =>
+                prevPolls.map((poll) =>
+                    poll._id === updatedPoll._id ? updatedPoll : poll
+                )
+            );
+
+        } catch (error: any) {
+            toast.error(error.response.data.message)
         }
     };
-
     return (
         <div className="mx-2 md:mx-20 mt-8">
             <h1 className='text-orange-500 text-xl md:text-6xl mx-20'>Trending Polls</h1>
@@ -108,10 +82,10 @@ const AllPolls: React.FC = () => {
                 <UserHeader />
             </div>
             <ul className='flex gap-3 justify-around  flex-wrap'>
-                {/* {polls.map((poll) => (
+                {polls.map((poll) => (
                     <li
                         key={poll._id}
-                        className="bg-[#43547A] rounded-md shadow-md p-4 mb-4 w-[270px] h-[200px]"
+                        className="bg-[#43547A] rounded-md shadow-md p-4 mb-4 w-[270px] h-[270px]"
                     >
                         <div>
                             <h3 className="text-xl font-semibold text-gray-800 mb-2">
@@ -123,39 +97,24 @@ const AllPolls: React.FC = () => {
                             <p className="text-gray-800 mt-2">Options:</p>
                             <ul className="list-disc pl-6">
                                 {poll.options.map((option) => (
-                                    <li
+                                    <button
                                         key={option._id}
-                                        className="text-white mb-2 flex items-center"
+                                        onClick={() => handleVote(poll._id, option.option, option._id)}
+                                        className="text-white mb-2 flex items-center bg-gray-700 py-2 px-4 rounded-md hover:cursor-pointer"
                                     >
-                                        <span
-                                            className="w-4 h-4 rounded-full mr-2 bg-[#F4714C]"
+                                        <button
+                                            className="w-4 h-4 rounded-full mr-2 bg-[#4c70f4]"
 
                                         />
                                         {option.option} - Votes: {option.votes}
-                                    </li>
+                                    </button>
                                 ))}
                             </ul>
 
                         </div>
                     </li>
-                ))} */}
-                {polls.map((poll) => (
-                    <div className='min-w-[280px] min-h-[200px] rounded-md text-white bg-[#43547a6a]'>
-
-                        <Poll
-                            key={poll._id}
-                            question={poll.title}
-                            pollStyles={pollStyles1}
-                            questionBold={true}
-                            answers={poll.options.map((option) => ({
-                                option: option.option,
-                                votes: option.votes,
-                            }))}
-                            onVote={(vote) => customVote(vote, poll._id)}
-                            noStorage={true}
-                        />
-                    </div>
                 ))}
+
             </ul>
         </div>
     )

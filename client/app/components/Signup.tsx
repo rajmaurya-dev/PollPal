@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useUserStore } from "@/utils/features";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
     username: z.string().min(2, {
@@ -65,8 +66,9 @@ export function Signup() {
             password: "",
         },
     })
+    const { setUser, user } = useUserStore.getState()
 
-
+    if (user.id) return redirect("/dashboard");
 
     return (
         <>
