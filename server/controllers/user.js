@@ -25,17 +25,25 @@ export const login = async (req, res, next) => {
     const valid = await bcrypt.compare(password, user.password);
     if (valid) {
       const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-      res
-        .cookie("token", token, {
-          httpOnly: true,
-          maxAge: 30 * 24 * 60 * 60 * 1000,
-        })
-        .json({
-          id,
-          token,
-          username,
-          message: "successfully logged in",
-        });
+      sendCookie(
+        user,
+        res,
+        `successfully logged in ${user.username}`,
+        200,
+        id,
+        username
+      );
+      // res
+      //   .cookie("token", token, {
+      //     httpOnly: true,
+      //     maxAge: 30 * 24 * 60 * 60 * 1000,
+      //   })
+      //   .json({
+      //     id,
+      //     token,
+      //     username,
+      //     message: "successfully logged in",
+      //   });
     } else {
       res.json({ message: "some error" });
     }
