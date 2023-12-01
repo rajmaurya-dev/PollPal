@@ -5,7 +5,9 @@ import ErrorHandler from "../middlewares/error.js";
 
 export const showPolls = async (req, res, next) => {
   try {
-    const polls = await Poll.find().populate("user", ["username", "id"]);
+    const polls = await Poll.find()
+      .sort({ createdAt: -1 })
+      .populate("user", ["username", "id"]);
     res.status(200).json(polls);
   } catch (error) {
     error.status = 400;
@@ -16,7 +18,9 @@ export const showPolls = async (req, res, next) => {
 export const userPolls = async (req, res, next) => {
   const { _id } = req.decoded;
   try {
-    const user = await User.findById(_id).populate("polls");
+    const user = await User.findById(_id)
+      .sort({ createdAt: -1 })
+      .populate("polls");
     res.status(200).json(user.polls);
   } catch (error) {
     error.status = 400;
@@ -126,7 +130,10 @@ export const vote = async (req, res, next) => {
     const { answer } = req.body;
 
     if (answer) {
-      const poll = await Poll.findById(pollId);
+      const poll = await Poll.findById(pollId).populate({
+        path: "user",
+        select: "username",
+      });
 
       if (!poll) {
         return res.status(400).json({

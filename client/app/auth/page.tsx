@@ -24,7 +24,7 @@ interface IFormInput {
     username: string
     password: string
 }
-export default function TabsDemo() {
+export default function Auth() {
     const { register, handleSubmit } = useForm<IFormInput>()
     const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data)
     return (

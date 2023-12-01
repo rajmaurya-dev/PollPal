@@ -11,8 +11,15 @@ export const register = async (req, res, next) => {
     if (user) return next(new ErrorHandler("User already exists", 400));
     const hashedPassword = await bcrypt.hash(password, 10);
     user = await User.create({ username, password: hashedPassword });
-
-    sendCookie(user, res, `successfully registered ${user.username}`, 200);
+    const { id } = user;
+    sendCookie(
+      user,
+      res,
+      `successfully registered ${user.username}`,
+      200,
+      id,
+      username
+    );
   } catch (error) {
     next(error);
   }

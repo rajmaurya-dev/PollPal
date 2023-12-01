@@ -4,6 +4,7 @@ import { useUserStore } from '@/utils/features';
 
 import { redirect } from 'next/navigation';
 import React from 'react'
+import CreatePoll from '../components/CreatePoll';
 
 
 const Page = () => {
@@ -20,8 +21,8 @@ const Page = () => {
             </div>
             <UserHeader />
 
-            <div>
-
+            <div className='mx-auto py-20 flex justify-center'>
+                <CreatePoll />
             </div>
         </section>
     )
