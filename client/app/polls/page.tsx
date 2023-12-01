@@ -63,7 +63,7 @@ const AllPolls: React.FC = () => {
 
             const updatedPoll = response.data;
 
-            // Update the state with the new poll data
+
             setPolls((prevPolls) =>
                 prevPolls.map((poll) =>
                     poll._id === updatedPoll._id ? updatedPoll : poll

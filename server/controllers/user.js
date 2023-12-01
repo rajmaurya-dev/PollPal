@@ -33,17 +33,6 @@ export const login = async (req, res, next) => {
         id,
         username
       );
-      // res
-      //   .cookie("token", token, {
-      //     httpOnly: true,
-      //     maxAge: 30 * 24 * 60 * 60 * 1000,
-      //   })
-      //   .json({
-      //     id,
-      //     token,
-      //     username,
-      //     message: "successfully logged in",
-      //   });
     } else {
       res.json({ message: "some error" });
     }

@@ -14,7 +14,7 @@ const UserHeader = () => {
             <Link href='/'>
                 <Button className='bg-orange-600  w-[120px]'>Create Poll</Button>
             </Link>
-            <Link href='/'>
+            <Link href='/mypolls'>
                 <Button className='bg-orange-600 w-[120px]'>My Polls</Button>
             </Link>
         </div>

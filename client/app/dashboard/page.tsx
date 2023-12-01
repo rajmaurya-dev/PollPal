@@ -5,6 +5,7 @@ import { useUserStore } from '@/utils/features';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
+
 const Page = () => {
     const user = useUserStore(state => state.user)
 
@@ -18,6 +19,10 @@ const Page = () => {
                 <h1 className='text-orange-500 text-xl md:text-6xl'>Welcome, <span className='text-blue-300 text-lg'>{user.username}</span> </h1>
             </div>
             <UserHeader />
+
+            <div>
+
+            </div>
         </section>
     )
 }
