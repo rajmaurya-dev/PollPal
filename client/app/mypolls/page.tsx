@@ -5,6 +5,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import PollList from '../components/PollList';
 import toast from 'react-hot-toast';
+import { useRouter } from "next/navigation";
 interface Option {
     _id: string;
     option: string;
@@ -24,6 +25,7 @@ interface Poll {
 }
 export default function Page() {
     const user = useUserStore(state => state.user)
+    const [refresh, setRefresh] = useState(false);
     const [polls, setPolls] = useState<Poll[]>([]);
     useEffect(() => {
 
@@ -43,7 +45,26 @@ export default function Page() {
             }
         };
         fetchPolls();
-    }, [])
+
+    }, [refresh])
+    const router = useRouter()
+    const handleDelete = async (pollId: any) => {
+        try {
+            const response = await axios.delete(
+                `${process.env.NEXT_PUBLIC_SERVER_PATH}/polls/${pollId}`,
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                },
+            );
+
+            toast.success('Poll deleted successfully')
+            setRefresh(!refresh);
+            router.refresh()
+        } catch (error: any) {
+            toast.error(error.response.data.message)
+        }
+    }
     const handleVote = async (pollId: string, option: string, optionId: string) => {
         try {
             console.log(`Voted for option ${option} in poll ${pollId}`)
@@ -65,6 +86,7 @@ export default function Page() {
                 )
             );
 
+
         } catch (error: any) {
             toast.error(error.response.data.message)
         }
@@ -77,7 +99,7 @@ export default function Page() {
             </div>
             <UserHeader />
             <div className='flex gap-3 justify-around  flex-wrap'>
-                <PollList polls={polls} handleVote={handleVote} />
+                <PollList polls={polls} handleVote={handleVote} showDelete={true} handleDelete={handleDelete} />
             </div>
         </section>
     )
