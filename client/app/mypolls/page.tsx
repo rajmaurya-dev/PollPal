@@ -5,7 +5,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import PollList from '../components/PollList';
 import toast from 'react-hot-toast';
-import { useRouter } from "next/navigation";
+import Link from 'next/link';
+
 interface Option {
     _id: string;
     option: string;
@@ -47,7 +48,7 @@ export default function Page() {
         fetchPolls();
 
     }, [refresh])
-    const router = useRouter()
+
     const handleDelete = async (pollId: any) => {
         try {
             const response = await axios.delete(
@@ -60,7 +61,7 @@ export default function Page() {
 
             toast.success('Poll deleted successfully')
             setRefresh(!refresh);
-            router.refresh()
+
         } catch (error: any) {
             toast.error(error.response.data.message)
         }
@@ -95,10 +96,17 @@ export default function Page() {
         <section className='mx-2 md:mx-20 mt-8'>
             <div className='mx-20'>
 
-                <h1 className='text-orange-500 text-xl md:text-6xl'>Polls of, <span className='text-blue-300 text-lg'>{user.username}</span> </h1>
+                <h1 className='text-orange-500 text-xl md:text-6xl'>Polls of, <span className='text-blue-500 text-lg'>{user.username}</span> </h1>
             </div>
             <UserHeader />
             <div className='flex gap-3 justify-around  flex-wrap'>
+                {polls.length === 0 && <div className=''>
+                    <h1 className='text-gray-500 text-xl md:text-6xl'>no polls yet</h1>
+                    <Link className='text-blue-600 mt-3 flex items-center ' href={'/dashboard'}>create one <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                    </svg>
+                    </span> </Link>
+                </div>}
                 <PollList polls={polls} handleVote={handleVote} showDelete={true} handleDelete={handleDelete} />
             </div>
         </section>

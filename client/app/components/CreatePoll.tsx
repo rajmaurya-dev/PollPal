@@ -14,7 +14,7 @@ const CreatePoll: React.FC<CreatePollProps> = () => {
         e.preventDefault();
 
         try {
-            // Check if there's a title and exactly two options
+
             if (!title.trim() || !option1.trim() || !option2.trim()) {
                 toast.error('Please provide a title and exactly two options.');
                 return;
@@ -36,8 +36,6 @@ const CreatePoll: React.FC<CreatePollProps> = () => {
             setTitle('');
             setOption1('');
             setOption2('');
-
-            // Optionally, you can redirect the user to the created poll or do other actions
         } catch (error) {
             console.error('Error creating poll:', error);
             toast.error('Failed to create poll. Please try again.');
