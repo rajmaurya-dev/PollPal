@@ -25,9 +25,11 @@ interface Poll {
 interface PollListProps {
     data: Poll[];
 }
+interface SinglePollProps {
+    params: any;
+}
 
-
-const SinglePoll: React.FC = ({ params }) => {
+const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
     const pollId = params.id
     const [poll, setPoll] = useState<Poll[]>([]);
 
@@ -51,7 +53,7 @@ const SinglePoll: React.FC = ({ params }) => {
         };
         fetchPolls(pollId);
         console.log(poll)
-    }, [])
+    })
     const handleVote = async (pollId: string, option: string, optionId: string) => {
         try {
             console.log(`Voted for option ${option} in poll ${pollId}`)
