@@ -34,9 +34,9 @@ const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, sho
     return (
         <ul className='flex gap-3 justify-around flex-wrap'>
             {polls.map((poll) => (
-                <div className={`${handleDelete ? `bg-green-700 bg-opacity-25 rounded-md my-2` : ''}`} >
+                <div className={`${handleDelete ? `bg-green-700 bg-opacity-25 rounded-md my-2` : ''}`} key={poll._id}>
 
-                    <Link href={`/polls/${poll._id}`} key={poll._id} >
+                    <Link href={`/polls/${poll._id}`}  >
                         <li
                             key={poll._id}
                             className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 w-[270px] min-h-[200px] pb-2 backdrop-blur-md"
