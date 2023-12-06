@@ -30,7 +30,7 @@ export default function Auth() {
     return (
         <div className="flex md:justify-center justify-around h-[80vh] items-center ">
 
-            <Tabs defaultValue="Login" className="w-[400px] bg-white bg-opacity-60 backdrop-blur-lg rounded drop-shadow-lg">
+            <Tabs defaultValue="Login" className="w-[400px] bg-white bg-opacity-10 backdrop-blur-lg rounded drop-shadow-lg">
                 <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="Login">Login</TabsTrigger>
                     <TabsTrigger value="SignUp">SignUp</TabsTrigger>
