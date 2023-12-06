@@ -77,7 +77,7 @@ const AllPolls: React.FC = () => {
         }
     };
     return (
-        <div  className="mx-2 md:mx-20 mt-8" >
+        <div className="mx-2 md:mx-20 mt-8" >
             <h1 className='text-orange-500 text-xl md:text-6xl mx-20'>Trending Polls</h1>
             <div>
 

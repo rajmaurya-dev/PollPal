@@ -22,22 +22,20 @@ interface Poll {
     options: Option[];
 }
 
-interface PollListProps {
-    data: Poll[];
-}
+
 interface SinglePollProps {
     params: any;
 }
 
 const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
     const pollId = params.id
-    const [poll, setPoll] = useState<Poll[]>([]);
+    const [poll, setPoll] = useState<Poll | null>(null);
 
     useEffect(() => {
 
         const fetchPolls = async (pollId: any) => {
             try {
-                const { data } = await axios.get<Poll[]>(
+                const { data } = await axios.get<Poll>(
                     `${process.env.NEXT_PUBLIC_SERVER_PATH}/polls/${pollId}`,
                     {
                         headers: { "Content-Type": "application/json" },
@@ -52,7 +50,7 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
             }
         };
         fetchPolls(pollId);
-        console.log(poll)
+
     })
     const handleVote = async (pollId: string, option: string, optionId: string) => {
         try {
@@ -69,12 +67,13 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
             const updatedPoll = response.data;
 
             // Update the state with the new poll data
-            setPoll((prevPoll) =>
-                prevPoll.map((poll) =>
-                    poll._id === updatedPoll._id ? updatedPoll : poll
-                )
-            );
-
+            // setPoll((prevPoll) => {
+            //     if (!prevPoll) return [updatedPoll];
+            //     return prevPoll.map((poll) =>
+            //         poll._id === updatedPoll._id ? updatedPoll : poll
+            //     )
+            // });
+            setPoll(updatedPoll);
 
         } catch (error: any) {
             toast.error(error.response.data.message)
