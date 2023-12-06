@@ -27,7 +27,7 @@ interface PollListProps {
 }
 
 
-const page: React.FC = ({ params }) => {
+const SinglePoll: React.FC = ({ params }) => {
     const pollId = params.id
     const [poll, setPoll] = useState<Poll[]>([]);
 
@@ -120,4 +120,4 @@ const page: React.FC = ({ params }) => {
     )
 }
 
-export default page
+export default SinglePoll
