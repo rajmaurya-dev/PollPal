@@ -36,44 +36,51 @@ const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, sho
             {polls.map((poll) => (
                 <div className={`${handleDelete ? `bg-green-700 bg-opacity-25 rounded-md my-2` : ''}`} key={poll._id}>
 
-                    <Link href={`/polls/${poll._id}`}  >
-                        <li
-                            key={poll._id}
-                            className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 w-[270px] min-h-[200px] pb-2 backdrop-blur-md"
-                        >
-                            <div>
-                                <div className='h-[50px]'>
 
-                                    <h3 className="text-xl font-semibold text-blue-500 mb-2">
-                                        {poll.title}
-                                    </h3>
-                                </div>
-                                {
-                                    showCreator && <p className="text-orange-500">
-                                        Created by: {poll.user.username}
-                                    </p>
-                                }
+                    <li
+                        key={poll._id}
+                        className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 w-[270px] min-h-[200px] pb-2 backdrop-blur-md"
+                    >
+                        <Link href={`/polls/${poll._id}`} className='w-fit inline-block absolute -right-1 -top-2 text-green-700  p-2 rounded-full opacity-25 bg-white backdrop-blur-md'  >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-green-600">
+                                <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
+                                <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
+                            </svg>
 
-                                <p className="text-blue-500 mt-2">Options:</p>
-                                <ul className="list-disc pl-6">
-                                    {poll.options.map((option) => (
-                                        <Button
-                                            key={option._id}
-                                            onClick={() => handleVote(poll._id, option.option, option._id)}
-                                            className="text-white mb-2 flex items-center bg-orange-600 py-2 px-4 rounded-md hover:bg-orange-700 hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-orange-500 w-[220px]"
-                                        >
-                                            <button
-                                                className="w-4 h-4 rounded-full mr-2 bg-blue-500"
-                                            />
-                                            {option.option} - Votes: {option.votes}
-                                        </Button>
-                                    ))}
-                                </ul>
+                        </Link>
+                        <div>
+                            <div className='h-[50px] my-2'>
+
+                                <h3 className="text-xl font-semibold text-blue-500 mb-2">
+                                    {poll.title}
+                                </h3>
                             </div>
+                            {
+                                showCreator && <p className="text-orange-500">
+                                    Created by: {poll.user.username}
+                                </p>
+                            }
+
+                            <p className="text-blue-500 mt-2">Options:</p>
+                            <ul className="list-disc pl-6">
+                                {poll.options.map((option) => (
+                                    <Button
+                                        key={option._id}
+                                        onClick={() => handleVote(poll._id, option.option, option._id)}
+                                        className="text-white mb-2 flex items-center bg-orange-600 py-2 px-4 rounded-md hover:bg-orange-700 hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-orange-500 w-[220px]"
+                                    >
+                                        <button
+                                            className="w-4 h-4 rounded-full mr-2 bg-blue-500"
+                                        />
+                                        {option.option} - Votes: {option.votes}
+                                    </Button>
+                                ))}
+                            </ul>
+                        </div>
 
 
-                        </li>
-                    </Link>
+                    </li>
+
                     {
                         showDelete &&
                         <div className='flex justify-end'>
