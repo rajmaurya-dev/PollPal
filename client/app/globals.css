@@ -26,14 +26,12 @@
   pointer-events: none;
   background-color: #4cf4b1b6;
   color: white;
-  background-position-x: calc(
-    100% - 200px
-  ); /* Adjust the position to leave 200px space on the right */
-  background-size: 200px auto; /* Set the width to 200px and auto for height */
+  background-position-x: calc(100% - 200px);
+  background-size: 200px auto;
   background-repeat: no-repeat;
 }
 .main:before {
-  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa 100%);
+  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa86 100%);
   position: absolute;
   content: "";
   z-index: 2;

@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { useUserStore } from '@/utils/features';
 import axios from 'axios';
+import { Button } from './button';
+import { redirect } from 'next/navigation'
 
 const Navbar: React.FC = () => {
     const user = useUserStore(state => state.user)
@@ -17,7 +19,7 @@ const Navbar: React.FC = () => {
                 }
             );
             setUser(data)
-            console.log(data)
+            redirect('/auth')
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -35,9 +37,9 @@ const Navbar: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                         {
-                            user.id ? <Link onClick={logoutHandler} href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
+                            user.id ? <Button variant={'ghost'} onClick={logoutHandler} className='text-red-500 hover:text-gray-300 hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium'>
                                 Logout
-                            </Link> : <Link href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
+                            </Button> : <Link href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
                                 Signin </Link>
                         }
 
