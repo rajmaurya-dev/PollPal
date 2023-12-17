@@ -63,16 +63,9 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
                     withCredentials: true,
                 }
             );
-
+            toast.success('Voted successfully')
             const updatedPoll = response.data;
 
-            // Update the state with the new poll data
-            // setPoll((prevPoll) => {
-            //     if (!prevPoll) return [updatedPoll];
-            //     return prevPoll.map((poll) =>
-            //         poll._id === updatedPoll._id ? updatedPoll : poll
-            //     )
-            // });
             setPoll(updatedPoll);
 
         } catch (error: any) {
