@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import PollList from '../components/PollList';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 interface Option {
     _id: string;
@@ -25,6 +26,7 @@ interface Poll {
     options: Option[];
 }
 export default function Page() {
+
     const user = useUserStore(state => state.user)
     const [refresh, setRefresh] = useState(false);
     const [polls, setPolls] = useState<Poll[]>([]);
@@ -92,6 +94,8 @@ export default function Page() {
             toast.error(error.response.data.message)
         }
     };
+    if (!user.id) return redirect("/auth");
+
     return (
         <section className='mx-2 md:mx-20 mt-8'>
             <div className='mx-20'>

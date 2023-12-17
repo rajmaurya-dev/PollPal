@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button';
 import UserHeader from '@/components/ui/userHeader';
+import { useUserStore } from '@/utils/features';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
@@ -28,6 +29,8 @@ interface SinglePollProps {
 }
 
 const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
+    const user = useUserStore(state => state.user)
+
     const pollId = params.id
     const [poll, setPoll] = useState<Poll | null>(null);
 
@@ -72,9 +75,11 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
             toast.error(error.response.data.message)
         }
     };
+
     return (
         <div className='w-full h-[80vh] flex flex-col justify-center items-center'>
-            <UserHeader />
+            {user.id && <UserHeader />}
+
             {poll ? <div
                 key={poll._id}
                 className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 md:max-w-[470px] min-h-[200px] pb-2 backdrop-blur-md"

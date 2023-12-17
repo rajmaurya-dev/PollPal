@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import PollList from '../components/PollList';
+import { useUserStore } from '@/utils/features';
 
 
 
@@ -29,6 +30,8 @@ interface PollListProps {
     data: Poll[];
 }
 const AllPolls: React.FC = () => {
+    const user = useUserStore(state => state.user)
+
     const [polls, setPolls] = useState<Poll[]>([]);
     useEffect(() => {
 
@@ -78,12 +81,12 @@ const AllPolls: React.FC = () => {
     };
     return (
         <div className="mx-2 md:mx-20 mt-8" >
-            <h1 className='text-orange-500 text-xl md:text-6xl mx-20'>Trending Polls</h1>
+            <h1 className='text-orange-500 text-xl md:text-6xl mx-20 '>Trending Polls</h1>
             <div>
 
-                <UserHeader />
+                {user.id && <UserHeader />}
             </div>
-            <ul className='flex gap-3 justify-around  flex-wrap'>
+            <ul className='flex gap-3 justify-around  flex-wrap my-2'>
                 <PollList polls={polls} handleVote={handleVote} showCreator={true} />
 
             </ul>
