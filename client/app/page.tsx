@@ -12,7 +12,7 @@ export default function Home() {
         </span> </h1>
         <p className='text-center mt-5 text-lg text-gray-600 sm:text-xl '>Create unlimited polls and surveys with just a few clicks. Ask the questions you really want answers to. Gain insights from multiple choice votes or open-ended responses.</p>
         <div className='grid place-content-center'>
-          <img className='h-[300px] object-cover' src="/hero.png" alt="hero" />
+          <img className='h-[300px] object-cover filter shadow-orange-500 drop-shadow-2xl  ' src="/hero.png" alt="hero" />
         </div>
         <Features />
       </main>

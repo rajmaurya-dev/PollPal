@@ -51,7 +51,7 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
         };
         fetchPolls(pollId);
 
-    })
+    }, [pollId])
     const handleVote = async (pollId: string, option: string, optionId: string) => {
         try {
             console.log(`Voted for option ${option} in poll ${pollId}`)
