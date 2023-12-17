@@ -36,19 +36,24 @@ const Navbar: React.FC = () => {
                         </Link>
                     </div>
                     <div className="flex items-center">
+                        <Link href="/polls" className='text-[#F4714C] hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium'>
+                            Polls
+                        </Link>
                         {
-                            user.id ? <Button variant={'ghost'} onClick={logoutHandler} className='text-red-500 hover:text-gray-300 hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium'>
-                                Logout
-                            </Button> : <Link href="/auth" className='text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium'>
-                                Signin </Link>
+                            user.id ?
+                                <div>
+                                    <Link href="/dashboard" className='text-[#F4714C] hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium'>
+                                        Dashboard
+                                    </Link>
+                                    <Button variant={'ghost'} onClick={logoutHandler} className='text-red-500 hover:text-gray-300 hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium'>
+                                        Logout
+                                    </Button>
+                                </div>
+                                : <Link href="/auth" className='text-[#F4714C] hover:text-orange-700 px-3 py-2 rounded-md text-sm font-medium'>
+                                    Signin </Link>
                         }
 
-                        {user.id &&
 
-                            <Link href="/dashboard" className='text-[#F4714C] hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium'>
-                                Dashboard
-                            </Link>
-                        }
                     </div>
                 </div>
             </div>
