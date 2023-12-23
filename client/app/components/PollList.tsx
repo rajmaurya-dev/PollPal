@@ -49,9 +49,9 @@ const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, sho
 
                         </Link>
                         <div>
-                            <div className='h-[50px] my-2'>
+                            <div className='h-[50px] my-2 py-2'>
 
-                                <h3 className="text-xl font-semibold text-blue-500 mb-2">
+                                <h3 className="text-xl font-semibold text-blue-500 mb-2 line-clamp-2">
                                     {poll.title}
                                 </h3>
                             </div>
