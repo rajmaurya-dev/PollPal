@@ -32,7 +32,7 @@ interface PollListProps {
 const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, showDelete, handleDelete }) => {
 
     return (
-        <ul className='flex gap-3 justify-around flex-wrap'>
+        <ul className='flex gap-12 justify-start flex-wrap mx-2 md:mx-20 '>
             {polls.map((poll) => (
                 <div className={`${handleDelete ? `bg-green-700 bg-opacity-25 rounded-md my-2` : ''}`} key={poll._id}>
 
@@ -41,8 +41,8 @@ const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, sho
                         key={poll._id}
                         className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 w-[270px] min-h-[200px] pb-2 backdrop-blur-md"
                     >
-                        <Link href={`/polls/${poll._id}`} className='w-fit inline-block absolute -right-1 -top-2 text-green-700  p-2 rounded-full opacity-25 bg-white backdrop-blur-md'  >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-green-600">
+                        <Link href={`/polls/${poll._id}`} className='w-fit inline-block absolute -right-1 -top-2 text-green-700  p-2 rounded-full opacity-25 bg-white backdrop-blur-md hover:bg-orange-600 hover:opacity-100 hover:text-white'  >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 ">
                                 <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
                                 <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
                             </svg>
@@ -67,7 +67,7 @@ const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, sho
                                     <Button
                                         key={option._id}
                                         onClick={() => handleVote(poll._id, option.option, option._id)}
-                                        className="text-white mb-2 flex items-center bg-orange-600 py-2 px-4 rounded-md hover:bg-orange-700 hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-orange-500 w-[220px]"
+                                        className="text-white mb-2 flex items-center bg-blue-600 py-2 px-4 rounded-md hover:bg-orange-700 w-[220px]"
                                     >
                                         <button
                                             className="w-4 h-4 rounded-full mr-2 bg-blue-500"

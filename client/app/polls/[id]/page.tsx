@@ -85,7 +85,7 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
                 className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 md:max-w-[470px] min-h-[200px] pb-2 backdrop-blur-md"
             >
                 <div>
-                    <div className='h-[50px]'>
+                    <div className='h-[50px] py-1'>
 
                         <h3 className="text-xl font-semibold text-blue-500 mb-2">
                             {poll?.title}
@@ -102,10 +102,10 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
                             <Button
                                 key={option._id}
                                 onClick={() => handleVote(poll._id, option.option, option._id)}
-                                className="text-white mb-2 flex items-center bg-orange-600 py-2 px-4 rounded-md hover:bg-orange-700 hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-orange-500 w-[220px]"
+                                className="text-white mb-2 flex items-center bg-blue-600 py-2 px-4 rounded-md hover:bg-orange-700  w-[220px]"
                             >
                                 <button
-                                    className="w-4 h-4 rounded-full mr-2 bg-blue-500"
+                                    className="min-w-4 h-4 rounded-full mr-2 bg-orange-500"
                                 />
                                 {option.option} - Votes: {option.votes}
                             </Button>
