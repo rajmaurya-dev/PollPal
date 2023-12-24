@@ -61,6 +61,8 @@ const CreatePoll: React.FC<CreatePollProps> = () => {
                 setOption2(option2);
                 setLoading(false);
             } else {
+                setLoading(false);
+
                 toast.error('Failed to get data from AI. Please try again.');
             }
 
