@@ -32,7 +32,7 @@ interface PollListProps {
 const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, showDelete, handleDelete }) => {
 
     return (
-        <ul className='flex gap-12 justify-start flex-wrap mx-2 md:mx-20 '>
+        <ul className='flex gap-12 md:justify-start justify-center  flex-wrap mx-2 md:mx-20 '>
             {polls.map((poll) => (
                 <div className={`${handleDelete ? `bg-green-700 bg-opacity-25 rounded-md my-2` : ''}`} key={poll._id}>
 
@@ -67,7 +67,7 @@ const PollList: React.FC<PollListProps> = ({ polls, handleVote, showCreator, sho
                                     <Button
                                         key={option._id}
                                         onClick={() => handleVote(poll._id, option.option, option._id)}
-                                        className="text-white mb-2 flex items-center bg-blue-600 py-2 px-4 rounded-md hover:bg-orange-700 w-[220px]"
+                                        className="text-white mb-2 flex items-center bg-blue-600 py-2 px-4 rounded-md line-clamp-1 overflow-y-hidden text-start hover:bg-orange-700 w-[220px]"
                                     >
                                         <button
                                             className="w-4 h-4 rounded-full mr-2 bg-blue-500"

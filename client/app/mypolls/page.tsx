@@ -43,7 +43,7 @@ export default function Page() {
                 );
                 setPolls(data);
             } catch (error: any) {
-                console.log(error.response.data.message)
+                toast.error('Failed to fetch polls. Please try again.')
 
             }
         };
@@ -70,7 +70,7 @@ export default function Page() {
     }
     const handleVote = async (pollId: string, option: string, optionId: string) => {
         try {
-            console.log(`Voted for option ${option} in poll ${pollId}`)
+
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_SERVER_PATH}/polls/${pollId}`,
                 { answer: option },
@@ -81,8 +81,6 @@ export default function Page() {
             );
 
             const updatedPoll = response.data;
-
-            // Update the state with the new poll data
             setPolls((prevPolls) =>
                 prevPolls.map((poll) =>
                     poll._id === updatedPoll._id ? updatedPoll : poll

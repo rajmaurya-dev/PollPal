@@ -46,7 +46,7 @@ const AllPolls: React.FC = () => {
                 );
                 setPolls(data);
             } catch (error: any) {
-                console.log(error.response.data.message)
+                toast.error(error.response.data.message || 'Failed to fetch polls. Please try again.')
 
             }
         };
@@ -56,7 +56,7 @@ const AllPolls: React.FC = () => {
 
     const handleVote = async (pollId: string, option: string, optionId: string) => {
         try {
-            console.log(`Voted for option ${option} in poll ${pollId}`)
+
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_SERVER_PATH}/polls/${pollId}`,
                 { answer: option },

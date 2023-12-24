@@ -45,10 +45,9 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
                         withCredentials: true,
                     },
                 );
-                console.log(data)
                 setPoll(data);
             } catch (error: any) {
-                console.log(error.response.data.message)
+                toast.error('Failed to fetch polls. Please try again.')
 
             }
         };
@@ -82,7 +81,7 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
 
             {poll ? <div
                 key={poll._id}
-                className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 md:max-w-[470px] min-h-[200px] pb-2 backdrop-blur-md"
+                className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 md:min-w-[470px] md:max-w-[800px] min-h-[200px] pb-2 backdrop-blur-md mx-2"
             >
                 <div>
                     <div className='h-[50px] py-1'>
@@ -102,7 +101,7 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
                             <Button
                                 key={option._id}
                                 onClick={() => handleVote(poll._id, option.option, option._id)}
-                                className="text-white mb-2 flex items-center bg-blue-600 py-2 px-4 rounded-md hover:bg-orange-700  w-[220px]"
+                                className="text-white mb-2 flex items-center bg-blue-600 py-2 px-4 rounded-md hover:bg-orange-700 h-auto min-w-[220px]"
                             >
                                 <button
                                     className="min-w-4 h-4 rounded-full mr-2 bg-orange-500"

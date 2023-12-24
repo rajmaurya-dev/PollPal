@@ -35,7 +35,7 @@ const CreatePoll: React.FC<CreatePollProps> = () => {
             setOption1('');
             setOption2('');
         } catch (error) {
-            console.error('Error creating poll:', error);
+
             toast.error('Failed to create poll. Please try again.');
         }
     };
@@ -67,7 +67,7 @@ const CreatePoll: React.FC<CreatePollProps> = () => {
             }
 
         } catch (error) {
-            console.error('Error creating poll:', error);
+
             toast.error('Failed to get data. Please try again.');
         }
     }

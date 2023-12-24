@@ -55,8 +55,7 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
             }
         );
         setUser(data)
-        console.log('user', user)
-        console.log('data', data)
+
         toast.success(data?.message || 'Success');
 
 
