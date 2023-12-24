@@ -84,7 +84,7 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
                 className="bg-white bg-opacity-25 rounded-md shadow-md p-4 mb-4 md:min-w-[470px] md:max-w-[800px] min-h-[200px] pb-2 backdrop-blur-md mx-2"
             >
                 <div>
-                    <div className='h-[50px] py-1'>
+                    <div className='h-[50px] my-2 py-2'>
 
                         <h3 className="text-xl font-semibold text-blue-500 mb-2">
                             {poll?.title}
@@ -96,17 +96,19 @@ const SinglePoll: React.FC<SinglePollProps> = ({ params }) => {
 
 
                     <p className="text-blue-500 mt-2">Options:</p>
-                    <ul className="list-disc pl-6 flex flex-col md:flex-row gap-2">
+                    <ul className="list-disc pl-6 flex flex-col md:flex-row gap-2 my-5">
                         {poll?.options?.map((option) => (
                             <Button
                                 key={option._id}
                                 onClick={() => handleVote(poll._id, option.option, option._id)}
-                                className="text-white mb-2 flex items-center bg-blue-600 py-2 px-4 rounded-md hover:bg-orange-700 h-auto min-w-[220px]"
+                                className="text-white mb-2 flex items-center justify-between bg-blue-600 py-2 px-4 rounded-md hover:bg-orange-700 h-auto min-w-[220px]"
                             >
-                                <button
-                                    className="min-w-4 h-4 rounded-full mr-2 bg-orange-500"
-                                />
-                                {option.option} - Votes: {option.votes}
+                                <span className='capitalize font-semibold '>
+                                    {option.option}
+                                </span>
+                                <span className='ml-1 bg-white text-black w-5 rounded-full text-center'>
+                                    {option.votes}
+                                </span>
                             </Button>
                         ))}
                     </ul>
