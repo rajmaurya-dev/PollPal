@@ -15,13 +15,13 @@ export const metadata: Metadata = {
   keywords: ['poll', 'polling', 'AI', 'opinion', 'friends', 'fun', 'share', 'create', 'vote', 'pollpal', 'poll pal'
   ],
   openGraph: {
-    url: "https://pollpal.vercel.app",
+    url: "https://poll-pal.vercel.app",
     type: "website",
     title: "PollPal |  An AI Powered Polling App",
     description: "Create polls with a tap, let AI do the rest. PollPal makes sharing opinions fun and effortless with your friend squad",
     images: [
       {
-        url: "poll-pal.vercel.app/og.png",
+        url: "https://poll-pal.vercel.app/og.png",
         width: 1200,
         height: 630,
         alt: "PollPal",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     creator: "@rajmauryafr",
     images: [
       {
-        url: "poll-pal.vercel.app/og.png",
+        url: "https://poll-pal.vercel.app/og.png",
         width: 1200,
         height: 630,
         alt: "PollPal",
