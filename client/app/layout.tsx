@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     creator: "@rajmauryafr",
     images: [
       {
-        url: "https://poll-pal.vercel.app/og.png",
+        url: "https://poll-pal.vercel.app/twitter-og.png",
         width: 1200,
         height: 630,
         alt: "PollPal",
